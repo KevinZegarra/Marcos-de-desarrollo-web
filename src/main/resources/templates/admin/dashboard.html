@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard — AY Fitness Gym</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+</head>
+<body>
+<div id="adminPage" class="page active">
+  <div class="admin-wrap">
+
+    <!-- SIDEBAR -->
+    <div th:replace="~{fragments/header :: admin-sidebar('dashboard')}"></div>
+
+    <!-- CONTENIDO -->
+    <div class="admin-content">
+      <div class="admin-panel active">
+
+        <div class="admin-topbar">
+          <h4>DASH<span>BOARD</span></h4>
+          <span style="color:var(--muted);font-size:.85rem;"
+                th:text="${#temporals.format(#temporals.createNow(), 'EEEE, dd MMMM yyyy', new java.util.Locale('es','PE'))}">
+          </span>
+        </div>
+
+        <!-- Alertas flash -->
+        <div th:if="${exito}" class="alert-success-gym mb-3" th:text="${exito}"></div>
+        <div th:if="${error}"  class="alert-error mb-3"       th:text="${error}"></div>
+
+        <!-- KPIs -->
+        <div class="row g-3 mb-4">
+          <div class="col-6 col-lg-3">
+            <div class="kpi-card">
+              <div class="kpi-num" style="color:var(--neon)" th:text="${metricas.clientesActivos}">—</div>
+              <div class="kpi-label">Miembros Activos</div>
+              <div class="kpi-change up"><i class="bi bi-check-circle"></i> Al día</div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="kpi-card">
+              <div class="kpi-num" style="color:var(--orange)" th:text="${metricas.clientesPorVencer}">—</div>
+              <div class="kpi-label">Vencen en 7 días</div>
+              <div class="kpi-change down"><i class="bi bi-exclamation-circle"></i> Atención</div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="kpi-card">
+              <div class="kpi-num" style="color:#4ade80"
+                   th:text="'S/ ' + ${#numbers.formatDecimal(metricas.ingresosMes, 0, 'COMMA', 2, 'POINT')}">—</div>
+              <div class="kpi-label">Ingresos del mes</div>
+              <div class="kpi-change up"><i class="bi bi-arrow-up"></i> Este mes</div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="kpi-card">
+              <div class="kpi-num" style="color:var(--red)" th:text="${metricas.clientesVencidos}">—</div>
+              <div class="kpi-label">Vencidos sin pagar</div>
+              <div class="kpi-change down"><i class="bi bi-arrow-down"></i> Pendientes</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alertas por vencer -->
+        <div th:if="${not #lists.isEmpty(porVencer)}" class="chart-wrap mb-4"
+             style="border-left:3px solid var(--orange);">
+          <div class="chart-title" style="color:var(--orange);">
+            ⚠️ Membresías próximas a vencer (7 días)
+          </div>
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr><th>Miembro</th><th>Plan</th><th>Vence</th><th>Días restantes</th><th>Acción</th></tr>
+              </thead>
+              <tbody>
+                <tr th:each="c : ${porVencer}">
+                  <td><strong th:text="${c.nombreCompleto}"></strong></td>
+                  <td><span class="badge-plan" th:classappend="'badge-' + ${c.plan.nombre.toLowerCase()}"
+                            th:text="${c.plan.nombre}"></span></td>
+                  <td style="color:#888;font-size:.82rem;" th:text="${#temporals.format(c.fechaVencimiento,'dd/MM/yyyy')}"></td>
+                  <td>
+                    <span th:classappend="${c.diasRestantes <= 3} ? 'badge-status vencido' : 'badge-status vence'"
+                          th:text="${c.diasRestantes} + ' días'"></span>
+                  </td>
+                  <td>
+                    <a th:href="@{/admin/clientes/editar/{id}(id=${c.id})}"
+                       class="btn-icon" title="Renovar"><i class="bi bi-arrow-clockwise"></i></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Últimos pagos -->
+        <div class="chart-wrap">
+          <div class="chart-title">💳 Últimos pagos registrados</div>
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr><th>Miembro</th><th>Plan</th><th>Monto</th><th>Fecha</th><th>Estado</th></tr>
+              </thead>
+              <tbody>
+                <tr th:if="${#lists.isEmpty(ultimosPagos)}">
+                  <td colspan="5" style="text-align:center;color:#555;padding:2rem;">Sin pagos registrados aún.</td>
+                </tr>
+                <tr th:each="p : ${ultimosPagos}">
+                  <td><strong th:text="${p.cliente.nombreCompleto}"></strong></td>
+                  <td><span class="badge-plan"
+                            th:classappend="'badge-' + ${p.plan.nombre.toLowerCase()}"
+                            th:text="${p.plan.nombre}"></span></td>
+                  <td style="font-family:'Barlow Condensed';font-size:1rem;font-weight:800;color:var(--neon);"
+                      th:text="'S/ ' + ${#numbers.formatDecimal(p.monto, 0, 'COMMA', 2, 'POINT')}"></td>
+                  <td style="color:#666;font-size:.82rem;"
+                      th:text="${#temporals.format(p.fechaPago,'dd/MM/yyyy')}"></td>
+                  <td>
+                    <span th:classappend="${p.estado.name() == 'PAGADO'} ? 'badge-status activo' : 'badge-status vencido'"
+                          th:text="${p.estado.name() == 'PAGADO'} ? 'Pagado' : 'Pendiente'"></span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Distribución por plan -->
+        <div class="row g-4 mt-2">
+          <div class="col-md-4">
+            <div class="kpi-card text-center">
+              <div class="kpi-num" style="color:#666" th:text="${metricas.countBasico}">0</div>
+              <div class="kpi-label">Plan Básico</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="kpi-card text-center">
+              <div class="kpi-num" style="color:var(--neon)" th:text="${metricas.countPro}">0</div>
+              <div class="kpi-label">Plan Pro</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="kpi-card text-center">
+              <div class="kpi-num" style="color:var(--orange)" th:text="${metricas.countElite}">0</div>
+              <div class="kpi-label">Plan Elite</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

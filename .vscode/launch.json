@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-AyFitnessGymApplication<ayfitnessgym>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.gym.AyFitnessGymApplication",
+            "projectName": "ayfitnessgym",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

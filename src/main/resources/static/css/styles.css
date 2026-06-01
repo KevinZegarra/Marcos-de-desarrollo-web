@@ -1,0 +1,9 @@
+﻿/* ═══════════════════════════════════════════
+   AY FITNESS GYM — styles.css
+   Entrada principal que une los módulos CSS
+   ═══════════════════════════════════════════ */
+
+@import url("base.css");
+@import url("layout.css");
+@import url("components.css");
+@import url("admin.css");

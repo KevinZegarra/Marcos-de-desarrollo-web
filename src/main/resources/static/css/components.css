@@ -1,0 +1,337 @@
+/* ═══════════════════════════════════════════
+   AY FITNESS GYM — components.css
+   Botones, formularios, modales y utilidades
+   ═══════════════════════════════════════════ */
+
+/* ── BUTTONS ── */
+.btn-neon {
+  background: var(--neon);
+  color: #000;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 3px;
+  padding: .45rem 1.3rem;
+  transition: background .2s, transform .15s;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+}
+
+.btn-neon:hover {
+  background: #aadd00;
+  transform: translateY(-1px);
+  color: #000;
+}
+
+.btn-outline-neon {
+  border: 2px solid var(--neon);
+  color: var(--neon);
+  background: transparent;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  border-radius: 3px;
+  padding: .45rem 1.3rem;
+  transition: all .2s;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+}
+
+.btn-outline-neon:hover {
+  background: var(--neon);
+  color: #000;
+}
+
+.btn-outline-secondary {
+  border: 1px solid #333;
+  color: #666;
+  background: transparent;
+  border-radius: 3px;
+  padding: .4rem 1rem;
+  font-size: .82rem;
+  cursor: pointer;
+  transition: all .2s;
+}
+
+.btn-outline-secondary:hover {
+  border-color: #555;
+  color: #aaa;
+}
+
+/* ── MODAL / LOGIN ── */
+.modal-box {
+  background: #111;
+  border: 1px solid #2a2a2a;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 420px;
+  padding: 2.5rem;
+  position: relative;
+  animation: popIn .25s ease;
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(.9);
+    opacity: 0
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: #555;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  color: #fff;
+}
+
+.modal-logo {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 1.6rem;
+  color: var(--neon);
+  margin-bottom: .2rem;
+}
+
+.modal-logo span {
+  color: #fff;
+}
+
+.modal-subtitle {
+  font-size: .85rem;
+  color: var(--muted);
+  margin-bottom: 1.8rem;
+}
+
+/* ── FORMS ── */
+.form-label-neon {
+  font-size: .8rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: .4rem;
+  display: block;
+}
+
+.form-control-dark {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  color: #fff;
+  border-radius: 4px;
+  padding: .6rem .9rem;
+  width: 100%;
+  font-family: 'Barlow', sans-serif;
+  font-size: .95rem;
+  transition: border-color .2s;
+  margin-bottom: .25rem;
+}
+
+.form-control-dark:focus {
+  outline: none;
+  border-color: var(--neon);
+  background: #1e1e1e;
+}
+
+.form-control-dark option {
+  background: #1a1a1a;
+}
+
+/* ── ALERTAS ── */
+.alert-error {
+  background: #2a0a0a;
+  border: 1px solid var(--red);
+  color: var(--red);
+  border-radius: 4px;
+  padding: .7rem 1rem;
+  font-size: .88rem;
+}
+
+.alert-success-gym {
+  background: #0d2a0d;
+  border: 1px solid #2a5a2a;
+  color: #7dea7d;
+  border-radius: 4px;
+  padding: .7rem 1rem;
+  font-size: .88rem;
+}
+
+.demo-hint {
+  text-align: center;
+  font-size: .78rem;
+  color: #444;
+  margin-top: 1rem;
+}
+
+.demo-hint strong {
+  color: #666;
+}
+
+/* ── BADGES ── */
+.badge-plan {
+  display: inline-block;
+  padding: .2rem .6rem;
+  border-radius: 3px;
+  font-size: .72rem;
+  font-weight: 700;
+  font-family: 'Barlow Condensed', sans-serif;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.badge-basico,
+.badge-básico {
+  background: #1a1a1a;
+  color: #888;
+  border: 1px solid #333;
+}
+
+.badge-pro {
+  background: #131a00;
+  color: var(--neon);
+  border: 1px solid var(--neon);
+}
+
+.badge-elite {
+  background: #1a0d00;
+  color: var(--orange);
+  border: 1px solid var(--orange);
+}
+
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  font-size: .78rem;
+  font-weight: 600;
+}
+
+.badge-status.activo {
+  color: #4ade80;
+}
+
+.badge-status.vence {
+  color: var(--orange);
+}
+
+.badge-status.vencido {
+  color: var(--red);
+}
+
+.badge-status::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+/* ── BTN ICON ── */
+.btn-icon {
+  background: none;
+  border: 1px solid #333;
+  color: #666;
+  border-radius: 4px;
+  padding: .3rem .5rem;
+  cursor: pointer;
+  transition: all .2s;
+  font-size: .85rem;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-icon:hover {
+  border-color: var(--neon);
+  color: var(--neon);
+}
+
+.btn-icon.del:hover {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+/* ── CHART WRAP ── */
+.chart-wrap {
+  background: var(--card-bg);
+  border: 1px solid #222;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.chart-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #888;
+  margin-bottom: 1.2rem;
+  letter-spacing: .08em;
+}
+
+/* ── BÚSQUEDA ── */
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-wrap>i {
+  position: absolute;
+  left: .8rem;
+  color: #555;
+  z-index: 1;
+}
+
+.search-input {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  color: #fff;
+  border-radius: 5px;
+  padding: .55rem .9rem .55rem 2.2rem;
+  width: 100%;
+  font-family: 'Barlow', sans-serif;
+  font-size: .88rem;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--neon);
+}
+
+/* ── FORMULARIO MIEMBRO ── */
+.member-form-box {
+  background: var(--card-bg);
+  border: 1px solid #222;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.member-form-box h6 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--neon);
+  margin-bottom: 1.2rem;
+  letter-spacing: .08em;
+}
