@@ -35,7 +35,6 @@ public class AdminContentController {
     @Value("${app.upload-dir:uploads}")
     private String uploadDir;
 
-    // ─── PROMOCIONES ────────────────────────────────────────────────
 
     @GetMapping("/admin/promociones")
     public String promociones(Model model) {
@@ -96,7 +95,6 @@ public class AdminContentController {
         return "redirect:/admin/promociones";
     }
 
-    // ─── GALERÍA ────────────────────────────────────────────────────
 
     @GetMapping("/admin/galeria")
     public String galeria(Model model) {
@@ -109,7 +107,9 @@ public class AdminContentController {
                               @RequestParam(value = "descripcion", required = false) String descripcion,
                               @RequestParam(value = "archivo", required = false) MultipartFile archivo,
                               RedirectAttributes flash) {
-        // Validaciones básicas
+
+
+
         if (nombre == null || nombre.isBlank()) {
             flash.addFlashAttribute("error", "❌ El nombre de la imagen es obligatorio.");
             return "redirect:/admin/galeria";
@@ -119,6 +119,8 @@ public class AdminContentController {
             return "redirect:/admin/galeria";
         }
 
+
+        
         String extension = getExtension(archivo.getOriginalFilename()).toLowerCase();
         if (!EXTENSIONES_PERMITIDAS.contains(extension)) {
             flash.addFlashAttribute("error", "❌ Formato no permitido. Usa JPG, PNG, GIF o WEBP.");

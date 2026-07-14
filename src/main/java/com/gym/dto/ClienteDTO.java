@@ -7,10 +7,7 @@ import lombok.Data;
 
 import java.time.LocalDate;
 
-/**
- * DTO para formulario de creación/edición de cliente.
- * metodoPago es opcional en edición (se valida en el controller).
- */
+
 @Data
 public class ClienteDTO {
 
