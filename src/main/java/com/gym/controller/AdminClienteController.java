@@ -17,7 +17,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin/clientes")
 @RequiredArgsConstructor
-public class AdminClienteController  extends ClienteDTO {
+public class AdminClienteController {
 
     private final ClienteService clienteService;
     private final PlanService planService;

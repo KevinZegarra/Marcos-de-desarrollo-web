@@ -88,17 +88,9 @@
 
                     <!-- Teléfono -->
                     <div class="col-md-6">
-
                       <label class="form-label-neon">Teléfono *</label>
-
-
-
                       <input type="text" class="form-control-dark" th:field="*{telefono}" placeholder="+51 999 000 000"
                         th:classappend="${#fields.hasErrors('telefono')} ? ' is-invalid' : ''" />
-
-
-
-
                       <small class="text-danger" th:if="${#fields.hasErrors('telefono')}"
                         th:errors="*{telefono}"></small>
                     </div>
@@ -117,9 +109,6 @@
                       <select class="form-control-dark" th:field="*{planId}"
                         th:classappend="${#fields.hasErrors('planId')} ? ' is-invalid' : ''">
                         <option value="">— Seleccionar plan —</option>
-
-
-
                         <option th:each="p : ${planes}" th:value="${p.id}"
                           th:text="${p.nombre + ' — S/ ' + p.precio + '/mes'}">
                         </option>
@@ -151,8 +140,6 @@
                         th:errors="*{metodoPago}"></small>
                     </div>
 
-
-
                     <!-- Botón submit -->
                     <div class="col-12 mt-2">
                       <button type="submit" class="btn btn-neon w-100" style="padding:.8rem;font-size:1.05rem;">
@@ -167,9 +154,6 @@
               </div>
             </div>
 
-
-
-            
             <!-- Panel lateral de precios -->
             <div class="col-lg-4">
               <div class="member-form-box">

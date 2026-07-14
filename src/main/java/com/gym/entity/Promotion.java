@@ -1,12 +1,14 @@
 package com.gym.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "promociones")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class Promotion {
 

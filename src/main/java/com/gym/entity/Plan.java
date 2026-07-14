@@ -1,7 +1,8 @@
 package com.gym.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
@@ -9,7 +10,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "planes")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class Plan {
 
